@@ -5,6 +5,7 @@ import './App.css';
 // }
 interface IState {
   newString: string;
+  repeatedChars: string;
   outcome: string;
   isFailHidden: boolean;
   isSuccessHidden: boolean;
@@ -24,6 +25,7 @@ class App extends React.Component <{}, IState>{
       isFailHidden: true,
       isSuccessHidden: true,
       newString: "",
+      repeatedChars: "",
       outcome: "",
     };
 
@@ -60,7 +62,7 @@ class App extends React.Component <{}, IState>{
       halfway = Math.ceil(repeatedChars.length / 2.0);
       
       for(i=0; i<= halfway; i++){
-        if(repeatedChars[i] !== repeatedChars[repeatedChars.length - i]){
+        if(repeatedChars[i] !== repeatedChars[repeatedChars.length - 1 - i]){
           return false;
         }
       }
@@ -87,7 +89,10 @@ class App extends React.Component <{}, IState>{
       console.log(this.myString);
       const histogram: number[] = this.createHistogram(this.myString);
       const repeatedCharsString: string = this.createNewRepeatedCharString(this.myString, histogram);
-
+      this.setState({
+        repeatedChars: repeatedCharsString
+      });
+      
       if(repeatedCharsString && repeatedCharsString.length >= 4){
         isSubsequenceRepeated = this.isSubsequenceRepeated(repeatedCharsString)
       }
@@ -137,8 +142,8 @@ class App extends React.Component <{}, IState>{
               <button className="btn btn-primary" onClick={this.handleFindout}>Find Out</button>
               <hr/>
               <div className="form-group row"> 
-                <label className="col-md-4">Your String</label>
-                <input className="form-control col-md-8" type="text" readOnly={true} value={this.state.newString}/>
+                <label className="col-md-4">Repeated Characters In Order</label>
+                <input className="form-control col-md-8" type="text" readOnly={true} value={this.state.repeatedChars}/>
               </div>
             </form>
           </div>
