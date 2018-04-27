@@ -66,6 +66,12 @@ class App extends React.Component <{}, IState>{
           return false;
         }
       }
+
+      if (repeatedChars.length%2 == 1)
+      {
+        var newCharDropLast : string = repeatedChars.substr(0, repeatedChars.length - 1);
+        return this.isRepeatedCharArrayAreflection(newCharDropLast);
+      }
     }
     console.log(repeatedChars);
     return true;
